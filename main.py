@@ -19,8 +19,17 @@ def encrypt(plain_str,char_break='/',word_break='//'):
     morse_words = [char_break.join([eng_to_morse[char] for char in word]) for word in eng_words]
     return word_break.join(morse_words)
 
-test = encrypt("Hello World!")
-test
+def flip(eng_str):
+    # reverse forward/backword
+    return decrypt(encrypt(eng_str)[::-1])
 
-test = decrypt("...././.-../.-../---//.--/---/.-./.-../-../-.-.--")
+def swap(eng_str,temp_char="#"):
+    if temp_char in eng_str:
+        raise Exception('Use different temp_char.')
+    return decrypt(encrypt(eng_str).replace('.',temp_char).replace('-','.').replace(temp_char,'-'))
+
+def slip(eng_str,temp_char="#"):
+    return flip(swap(eng_str,temp_char=temp_char))
+
+test = ("Hello world")
 test
